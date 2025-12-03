@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { ArrowLeft, Phone, MapPin, Mail, Clock, Send, CheckCircle2 } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import SEO from '../components/SEO';
 
 export default function Contact() {
@@ -43,7 +43,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      await base44.integrations.Core.SendEmail({
+      await rankwise.integrations.Core.SendEmail({
         to: 'Info.ilmachauf@gmail.com',
         subject: `Demande de contact - ${formData.nom}`,
         body: `

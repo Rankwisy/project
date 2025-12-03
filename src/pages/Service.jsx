@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, Phone, CheckCircle, HelpCircle } from 'lucide-react';
 import ContactForm from '../components/ContactForm';
@@ -15,7 +15,7 @@ export default function Service() {
   const { data: service, isLoading, error } = useQuery({
     queryKey: ['service', slug],
     queryFn: async () => {
-      const services = await base44.entities.ServicePage.filter({ slug, published: true });
+      const services = await rankwise.entities.ServicePage.filter({ slug, published: true });
       return services[0];
     },
     enabled: !!slug

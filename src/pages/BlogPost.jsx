@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,10 +28,10 @@ export default function BlogPost() {
   const { data: post, isLoading } = useQuery({
     queryKey: ['blogPost', postId],
     queryFn: async () => {
-      const posts = await base44.entities.BlogPost.filter({ id: postId });
+      const posts = await rankwise.entities.BlogPost.filter({ id: postId });
       if (posts.length > 0) {
         // Increment views
-        await base44.entities.BlogPost.update(postId, { views: (posts[0].views || 0) + 1 });
+        await rankwise.entities.BlogPost.update(postId, { views: (posts[0].views || 0) + 1 });
         return posts[0];
       }
       return null;
@@ -44,7 +44,7 @@ export default function BlogPost() {
 
   const { data: comments = [] } = useQuery({
     queryKey: ['comments', postId],
-    queryFn: () => base44.entities.Comment.filter({ blog_post_id: postId, approved: true }, '-created_date'),
+    queryFn: () => rankwise.entities.Comment.filter({ blog_post_id: postId, approved: true }, '-created_date'),
     enabled: !!postId,
     staleTime: 2 * 60 * 1000, // 2 minutes
     cacheTime: 10 * 60 * 1000, // 10 minutes
@@ -52,7 +52,7 @@ export default function BlogPost() {
   });
 
   const createCommentMutation = useMutation({
-    mutationFn: (data) => base44.entities.Comment.create(data),
+    mutationFn: (data) => rankwise.entities.Comment.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries(['comments', postId]);
       setCommentForm({ author_name: '', author_email: '', content: '' });

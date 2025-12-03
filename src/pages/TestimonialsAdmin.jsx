@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,11 +24,11 @@ export default function TestimonialsAdmin() {
 
   const { data: testimonials = [], isLoading } = useQuery({
     queryKey: ['all-testimonials'],
-    queryFn: () => base44.entities.Testimonial.list('-created_date')
+    queryFn: () => rankwise.entities.Testimonial.list('-created_date')
   });
 
   const createMutation = useMutation({
-    mutationFn: (data) => base44.entities.Testimonial.create(data),
+    mutationFn: (data) => rankwise.entities.Testimonial.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['all-testimonials'] });
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
@@ -38,7 +38,7 @@ export default function TestimonialsAdmin() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.Testimonial.update(id, data),
+    mutationFn: ({ id, data }) => rankwise.entities.Testimonial.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['all-testimonials'] });
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
@@ -48,7 +48,7 @@ export default function TestimonialsAdmin() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => base44.entities.Testimonial.delete(id),
+    mutationFn: (id) => rankwise.entities.Testimonial.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['all-testimonials'] });
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });

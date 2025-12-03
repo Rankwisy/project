@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,11 +33,11 @@ export default function ServicesAdmin() {
 
   const { data: services = [], isLoading } = useQuery({
     queryKey: ['services-admin'],
-    queryFn: () => base44.entities.ServicePage.list('order')
+    queryFn: () => rankwise.entities.ServicePage.list('order')
   });
 
   const createMutation = useMutation({
-    mutationFn: (data) => base44.entities.ServicePage.create(data),
+    mutationFn: (data) => rankwise.entities.ServicePage.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['services-admin'] });
       resetForm();
@@ -46,7 +46,7 @@ export default function ServicesAdmin() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.ServicePage.update(id, data),
+    mutationFn: ({ id, data }) => rankwise.entities.ServicePage.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['services-admin'] });
       resetForm();
@@ -55,7 +55,7 @@ export default function ServicesAdmin() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => base44.entities.ServicePage.delete(id),
+    mutationFn: (id) => rankwise.entities.ServicePage.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['services-admin'] });
       toast.success('Service supprimé');

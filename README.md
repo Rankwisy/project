@@ -1,8 +1,6 @@
-# Base44 App
+# Rankwise App
 
-
-This app was created automatically by Base44.
-It's a Vite+React app that communicates with the Base44 API.
+This is a Vite+React app built with Rankwise.
 
 ## Running the app
 
@@ -17,4 +15,6 @@ npm run dev
 npm run build
 ```
 
-For more information and support, please contact Base44 support at app@base44.com.
+## Deployment
+
+The app is configured for Netlify deployment. The build command and publish directory are set in `netlify.toml`.

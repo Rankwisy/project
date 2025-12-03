@@ -1,26 +1,17 @@
-import { base44 } from './base44Client';
+import { rankwise } from './rankwiseClient';
 
+export const Core = rankwise.integrations.Core;
 
+export const InvokeLLM = rankwise.integrations.Core.InvokeLLM;
 
+export const SendEmail = rankwise.integrations.Core.SendEmail;
 
-export const Core = base44.integrations.Core;
+export const UploadFile = rankwise.integrations.Core.UploadFile;
 
-export const InvokeLLM = base44.integrations.Core.InvokeLLM;
+export const GenerateImage = rankwise.integrations.Core.GenerateImage;
 
-export const SendEmail = base44.integrations.Core.SendEmail;
+export const ExtractDataFromUploadedFile = rankwise.integrations.Core.ExtractDataFromUploadedFile;
 
-export const UploadFile = base44.integrations.Core.UploadFile;
+export const CreateFileSignedUrl = rankwise.integrations.Core.CreateFileSignedUrl;
 
-export const GenerateImage = base44.integrations.Core.GenerateImage;
-
-export const ExtractDataFromUploadedFile = base44.integrations.Core.ExtractDataFromUploadedFile;
-
-export const CreateFileSignedUrl = base44.integrations.Core.CreateFileSignedUrl;
-
-export const UploadPrivateFile = base44.integrations.Core.UploadPrivateFile;
-
-
-
-
-
-
+export const UploadPrivateFile = rankwise.integrations.Core.UploadPrivateFile;

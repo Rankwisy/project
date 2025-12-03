@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,7 +30,7 @@ export default function BlogEditor() {
   const { data: existingPost } = useQuery({
     queryKey: ['blogPost', postId],
     queryFn: async () => {
-      const posts = await base44.entities.BlogPost.filter({ id: postId });
+      const posts = await rankwise.entities.BlogPost.filter({ id: postId });
       return posts[0] || null;
     },
     enabled: !!postId,
@@ -47,9 +47,9 @@ export default function BlogEditor() {
   const saveMutation = useMutation({
     mutationFn: (data) => {
       if (postId) {
-        return base44.entities.BlogPost.update(postId, data);
+        return rankwise.entities.BlogPost.update(postId, data);
       }
-      return base44.entities.BlogPost.create(data);
+      return rankwise.entities.BlogPost.create(data);
     },
     onSuccess: () => {
       navigate(createPageUrl('BlogAdmin'));

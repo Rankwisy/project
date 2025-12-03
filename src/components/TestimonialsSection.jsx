@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star, MapPin, Quote } from 'lucide-react';
 
 export default function TestimonialsSection() {
   const { data: testimonials = [], isLoading } = useQuery({
     queryKey: ['testimonials'],
-    queryFn: () => base44.entities.Testimonial.filter({ published: true }, '-created_date', 6)
+    queryFn: () => rankwise.entities.Testimonial.filter({ published: true }, '-created_date', 6)
   });
 
   if (isLoading) {

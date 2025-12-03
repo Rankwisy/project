@@ -1,15 +1,12 @@
-import { base44 } from './base44Client';
+import { rankwise } from './rankwiseClient';
 
+export const BlogPost = rankwise.entities.BlogPost;
 
-export const BlogPost = base44.entities.BlogPost;
+export const Comment = rankwise.entities.Comment;
 
-export const Comment = base44.entities.Comment;
+export const Testimonial = rankwise.entities.Testimonial;
 
-export const Testimonial = base44.entities.Testimonial;
-
-export const ServicePage = base44.entities.ServicePage;
-
-
+export const ServicePage = rankwise.entities.ServicePage;
 
 // auth sdk:
-export const User = base44.auth;
+export const User = rankwise.auth;

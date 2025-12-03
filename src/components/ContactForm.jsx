@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Send, CheckCircle2 } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 
 export default function ContactForm({ serviceType }) {
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ export default function ContactForm({ serviceType }) {
     setIsSubmitting(true);
 
     try {
-      await base44.integrations.Core.SendEmail({
+      await rankwise.integrations.Core.SendEmail({
         to: 'contact@centrale-chauffagiste.be',
         subject: `Demande de devis - ${serviceType}`,
         body: `

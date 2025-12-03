@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Plus, Edit, Trash2, Eye, EyeOff } from 'lucide-react';
@@ -14,18 +14,18 @@ export default function BlogAdmin() {
 
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['allBlogPosts'],
-    queryFn: () => base44.entities.BlogPost.list('-created_date'),
+    queryFn: () => rankwise.entities.BlogPost.list('-created_date'),
     staleTime: 1 * 60 * 1000, // 1 minute
     cacheTime: 5 * 60 * 1000 // 5 minutes
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => base44.entities.BlogPost.delete(id),
+    mutationFn: (id) => rankwise.entities.BlogPost.delete(id),
     onSuccess: () => queryClient.invalidateQueries(['allBlogPosts'])
   });
 
   const togglePublishMutation = useMutation({
-    mutationFn: ({ id, published }) => base44.entities.BlogPost.update(id, { published }),
+    mutationFn: ({ id, published }) => rankwise.entities.BlogPost.update(id, { published }),
     onSuccess: () => queryClient.invalidateQueries(['allBlogPosts'])
   });
 

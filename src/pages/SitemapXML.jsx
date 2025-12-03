@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 
 export default function SitemapXML() {
   const { data: posts = [] } = useQuery({
     queryKey: ['blogPostsSitemap'],
-    queryFn: () => base44.entities.BlogPost.filter({ published: true }),
+    queryFn: () => rankwise.entities.BlogPost.filter({ published: true }),
   });
 
   const { data: services = [] } = useQuery({
     queryKey: ['servicePagesSitemap'],
-    queryFn: () => base44.entities.ServicePage.filter({ published: true }),
+    queryFn: () => rankwise.entities.ServicePage.filter({ published: true }),
   });
 
   useEffect(() => {

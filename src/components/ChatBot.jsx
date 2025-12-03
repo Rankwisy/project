@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { base44 } from '@/api/base44Client';
+import { rankwise } from '@/api/rankwiseClient';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -31,7 +31,7 @@ export default function ChatBot() {
   useEffect(() => {
     if (!conversation) return;
 
-    const unsubscribe = base44.agents.subscribeToConversation(conversation.id, (data) => {
+    const unsubscribe = rankwise.agents.subscribeToConversation(conversation.id, (data) => {
       setMessages(data.messages || []);
       const lastMessage = data.messages?.[data.messages.length - 1];
       if (lastMessage?.role === 'assistant' && lastMessage?.content) {
@@ -44,7 +44,7 @@ export default function ChatBot() {
 
   const initializeChat = async () => {
     try {
-      const conv = await base44.agents.createConversation({
+      const conv = await rankwise.agents.createConversation({
         agent_name: 'assistant_chauffagiste',
         metadata: {
           name: 'Chat Assistant',
@@ -54,7 +54,7 @@ export default function ChatBot() {
       setConversation(conv);
       
       // Message de bienvenue
-      await base44.agents.addMessage(conv, {
+      await rankwise.agents.addMessage(conv, {
         role: 'assistant',
         content: "👋 Bonjour ! Je suis l'assistant de Chauffagiste Express.\n\nComment puis-je vous aider aujourd'hui ?\n\n🔧 Installation de chaudière\n⚡ Dépannage urgent\n✅ Entretien annuel\n🔍 Zones d'intervention\n💬 Autre question"
       });
@@ -71,7 +71,7 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      await base44.agents.addMessage(conversation, {
+      await rankwise.agents.addMessage(conversation, {
         role: 'user',
         content: userMessage
       });
