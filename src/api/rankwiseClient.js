@@ -1,7 +1,7 @@
 // Rankwise API Client
 // Uses Supabase for blog posts, mocks for other entities
 
-import { supabase, TABLES } from './supabaseClient';
+import { supabase, TABLES, isConfigured } from './supabaseClient';
 
 // Mock entity handlers for non-blog entities
 const createMockEntity = (name) => ({
@@ -31,6 +31,12 @@ const createMockEntity = (name) => ({
 const BlogPostEntity = {
   list: async (order = '-created_date') => {
     try {
+      // Check if Supabase is configured
+      if (!isConfigured) {
+        console.warn('Supabase not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Netlify environment variables.');
+        return [];
+      }
+
       let query = supabase.from(TABLES.BLOG_POSTS).select('*');
       
       // Handle ordering
@@ -52,6 +58,12 @@ const BlogPostEntity = {
   
   filter: async (filters = {}, order = '-created_date', limit = null) => {
     try {
+      // Check if Supabase is configured
+      if (!isConfigured) {
+        console.warn('Supabase not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Netlify environment variables.');
+        return [];
+      }
+
       let query = supabase.from(TABLES.BLOG_POSTS).select('*');
       
       // Apply filters
@@ -92,6 +104,10 @@ const BlogPostEntity = {
   
   create: async (data) => {
     try {
+      if (!isConfigured) {
+        throw new Error('Supabase not configured');
+      }
+
       const { data: result, error } = await supabase
         .from(TABLES.BLOG_POSTS)
         .insert([{
@@ -112,6 +128,10 @@ const BlogPostEntity = {
   
   update: async (id, data) => {
     try {
+      if (!isConfigured) {
+        throw new Error('Supabase not configured');
+      }
+
       const { data: result, error } = await supabase
         .from(TABLES.BLOG_POSTS)
         .update({
@@ -132,6 +152,10 @@ const BlogPostEntity = {
   
   delete: async (id) => {
     try {
+      if (!isConfigured) {
+        throw new Error('Supabase not configured');
+      }
+
       const { error } = await supabase
         .from(TABLES.BLOG_POSTS)
         .delete()

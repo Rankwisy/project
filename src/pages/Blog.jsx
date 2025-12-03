@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { rankwise } from '@/api/rankwiseClient';
+import { isConfigured } from '@/api/supabaseClient';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -99,13 +100,39 @@ export default function Blog() {
         </div>
 
         {/* Posts Grid */}
-        {isLoading ? (
+        {!isConfigured ? (
+          <div className="text-center py-12">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 max-w-2xl mx-auto">
+              <h3 className="text-lg font-semibold text-yellow-800 mb-2">
+                Configuration Supabase requise
+              </h3>
+              <p className="text-yellow-700 mb-4">
+                Pour afficher les articles de blog, veuillez configurer Supabase :
+              </p>
+              <ol className="text-left text-yellow-700 space-y-2 mb-4">
+                <li>1. Créez un projet sur <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="underline">supabase.com</a></li>
+                <li>2. Exécutez le fichier <code className="bg-yellow-100 px-2 py-1 rounded">supabase-schema.sql</code> dans l'éditeur SQL</li>
+                <li>3. Ajoutez les variables d'environnement dans Netlify :
+                  <ul className="ml-4 mt-1 space-y-1">
+                    <li>• <code className="bg-yellow-100 px-1 rounded">VITE_SUPABASE_URL</code></li>
+                    <li>• <code className="bg-yellow-100 px-1 rounded">VITE_SUPABASE_ANON_KEY</code></li>
+                  </ul>
+                </li>
+                <li>4. Redéployez le site</li>
+              </ol>
+              <p className="text-sm text-yellow-600">
+                Consultez <code className="bg-yellow-100 px-2 py-1 rounded">SUPABASE_SETUP.md</code> pour les instructions détaillées.
+              </p>
+            </div>
+          </div>
+        ) : isLoading ? (
           <div className="text-center py-12">
             <p className="text-gray-600">Chargement des articles...</p>
           </div>
         ) : filteredPosts.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-600">Aucun article trouvé.</p>
+            <p className="text-sm text-gray-500 mt-2">Ajoutez des articles via la page d'administration.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

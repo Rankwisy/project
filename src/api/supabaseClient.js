@@ -5,8 +5,16 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Check if Supabase is configured
+const isSupabaseConfigured = supabaseUrl && supabaseAnonKey;
+
+// Create Supabase client (use dummy values if not configured to prevent errors)
+export const supabase = isSupabaseConfigured 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : createClient('https://placeholder.supabase.co', 'placeholder-key');
+
+// Export configuration status
+export const isConfigured = isSupabaseConfigured;
 
 // Database table names
 export const TABLES = {
