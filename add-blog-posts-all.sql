@@ -181,4 +181,3 @@ N''hésitez pas à consulter notre [site web](https://centrale-chauffagiste.be/)
   'Guide complet des coûts de chauffage à Bruxelles : installation, entretien, réparation. Tarifs 2025 et conseils pour économiser. Devis gratuit.'
 )
 ON CONFLICT (slug) DO NOTHING;
-
