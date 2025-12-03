@@ -25,7 +25,8 @@ Pour plus d''informations, visitez [Centrale Chauffagiste](https://centrale-chau
   0,
   'Installation Chaudière Bruxelles | Guide 2025',
   'Guide complet pour l''installation de chaudière à Bruxelles. Devis gratuit.'
-);
+)
+ON CONFLICT (slug) DO NOTHING;
 
 -- Post 2: Entretien
 INSERT INTO blog_posts (title, slug, excerpt, content, category, published, views, meta_title, meta_description)
@@ -49,7 +50,8 @@ Contactez [Centrale Chauffagiste](https://centrale-chauffagiste.be/contact) pour
   0,
   'Entretien Annuel Chaudière | Obligation Bruxelles',
   'Entretien annuel de chaudière obligatoire en Belgique. Devis gratuit.'
-);
+)
+ON CONFLICT (slug) DO NOTHING;
 
 -- Post 3: Dépannage
 INSERT INTO blog_posts (title, slug, excerpt, content, category, published, views, meta_title, meta_description)
@@ -74,7 +76,8 @@ Pour un dépannage urgent, [Centrale Chauffagiste](https://centrale-chauffagiste
   0,
   'Dépannage Chaudière Urgent Bruxelles | 24/7',
   'Dépannage chaudière urgent à Bruxelles. Service 24/7.'
-);
+)
+ON CONFLICT (slug) DO NOTHING;
 
 -- Post 4: Coûts (avec image)
 INSERT INTO blog_posts (title, slug, excerpt, content, category, featured_image, published, views, meta_title, meta_description)
@@ -106,5 +109,6 @@ Pour un devis personnalisé, contactez [Centrale Chauffagiste](https://centrale-
   0,
   'Coûts de Chauffage Bruxelles 2025',
   'Guide complet des coûts de chauffage à Bruxelles. Devis gratuit.'
-);
+)
+ON CONFLICT (slug) DO NOTHING;
 
